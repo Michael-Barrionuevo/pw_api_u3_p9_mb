@@ -27,7 +27,7 @@ public class EstudianteResource {
     }
 
     @GET
-    @Path("/consultarPorId/")
+    @Path("/consultarPorId/{id}")
     public Estudiante consultarPorId(@PathParam("id")Integer iden){
         return this.estudianteService.consultarPorId(iden);
     }
