@@ -19,26 +19,26 @@ public class MateriaResource {
   
 
     @GET
-    @Path("/todas")
+    @Path("")
     public Response obtenerTodas() {
         List<Materia> materias = materiaService.obtenerTodas();
         return Response.ok(materias).build();
     }
 
     @GET
-    @Path("/consultarPorId/{id}")
+    @Path("/{id}")
     public Response obtenerPorId(@PathParam("id") Integer id) {
         return Response.ok(materiaService.obtenerPorId(id)).build();
     }
 
     @GET
-    @Path("/buscarPorCarrera/{carrera}")
+    @Path("/{carrera}")
     public Response buscarPorCarrera(@PathParam("carrera") String carrera) {
         return Response.ok(materiaService.buscarPorCarrera(carrera)).build();
     }
 
     @GET
-    @Path("/buscarPorSemestre/{semestre}")
+    @Path("/{semestre}")
     public Response buscarPorSemestre(@PathParam("semestre") Integer semestre) {
         return Response.ok(materiaService.buscarPorSemestre(semestre)).build();
     }
@@ -46,7 +46,7 @@ public class MateriaResource {
    
 
     @POST
-    @Path("/crear")
+    @Path("")
     public Response crear(Materia materia) {
         Materia creada = materiaService.crear(materia);
         return Response.status(Response.Status.CREATED)
@@ -55,21 +55,21 @@ public class MateriaResource {
     }
 
     @PUT
-    @Path("/actualizar/{id}")
+    @Path("/{id}")
     public Response actualizar(@PathParam("id") Integer id, Materia materia) {
         Materia actualizada = materiaService.actualizar(id, materia);
         return Response.ok(actualizada).build();
     }
 
      @PATCH
-    @Path("/actualizarParcial/{id}")
+    @Path("/{id}")
     public Response actualizarParcial(@PathParam("id") Integer id, Materia materia) {
         Materia actualizada = materiaService.actualizarParcial(id, materia);
         return Response.ok(actualizada).build();
     }
 
     @DELETE
-    @Path("/borrar/{id}")
+    @Path("/{id}")
     public Response eliminar(@PathParam("id") Integer id) {
         materiaService.eliminar(id);
         return Response.noContent().build();

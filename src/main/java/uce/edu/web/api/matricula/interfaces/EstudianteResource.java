@@ -22,45 +22,50 @@ public class EstudianteResource {
     private EstudianteService estudianteService;
 
     @GET
-    @Path("/todos")
+    @Path("")
     public List<Estudiante> listarTodos() {
-        return this.estudianteService.listarTodos();
+        List<Estudiante> test = this.estudianteService.listarTodos();
+        System.out.println("LISTAR TODOS XXXXXX");
+        return test;
+    }
+
+     @GET
+    @Path("/provincia/genero")
+    public List<Estudiante>buscarPorProvincia(@QueryParam("provincia") String provincia, @QueryParam("genero") String genero){
+        System.out.println("LISTAR POR PROVINCIA Y GENERO XXXXXX");
+        return this.estudianteService.buscarPorProvincia(provincia, genero);
     }
 
     @GET
-    @Path("/consultarPorId/{id}")
+    @Path("/{id}")
     public Estudiante consultarPorId(@PathParam("id")Integer iden){
         return this.estudianteService.consultarPorId(iden);
     }
 
     @POST
-    @Path("/crear")
+    @Path("")
      public void guardar(Estudiante estu){
         this.estudianteService.crear(estu);
     }
     @PUT
-    @Path("/actualizar/{id}")
+    @Path("/{id}")
     public void actualizar(@PathParam("id") Integer id, Estudiante estu){
         this.estudianteService.actulizar(id, estu);
     }
 
     @PATCH
-    @Path("/actualizarParcial/{id}")
+    @Path("/{id}")
     public void actualizarParcial(@PathParam("id") Integer id, Estudiante estu){
         this.estudianteService.actualizarParcial(id, estu);
     }
 
     @DELETE
-    @Path("/borrar/{id}")
+    @Path("/{id}")
     public void borrar(@PathParam("id") Integer id){
         this.estudianteService.eliminar(id);
     }
 
-    @GET
-    @Path("/buscarPorProvincia")
-    public List<Estudiante>buscarPorProvincia(@QueryParam("provincia") String provincia, @QueryParam("genero") String genero){
-        return this.estudianteService.buscarPorProvincia(provincia, genero);
-    }
+   
 
 
 }
