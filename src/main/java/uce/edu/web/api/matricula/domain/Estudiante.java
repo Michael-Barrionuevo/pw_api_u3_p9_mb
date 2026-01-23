@@ -11,7 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "estudiante")
 @SequenceGenerator(name = "estudiante_sec", sequenceName = "cliente_secuencia",allocationSize = 1)

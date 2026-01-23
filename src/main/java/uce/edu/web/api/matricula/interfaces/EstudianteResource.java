@@ -2,10 +2,13 @@ package uce.edu.web.api.matricula.interfaces;
 
 import java.util.List;
 
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -24,6 +27,7 @@ public class EstudianteResource {
 
     @GET
     @Path("")
+   
     public List<Estudiante> listarTodos() {
         List<Estudiante> test = this.estudianteService.listarTodos();
         System.out.println("LISTAR TODOS XXXXXX");
@@ -39,6 +43,7 @@ public class EstudianteResource {
 
     @GET
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_XML)
     public Estudiante consultarPorId(@PathParam("id")Integer iden){
         return this.estudianteService.consultarPorId(iden);
     }
