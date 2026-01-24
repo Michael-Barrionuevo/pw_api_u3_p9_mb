@@ -72,11 +72,9 @@
         </dependency>
 
         <dependency>
-<groupId>io.quarkus</groupId>
-<artifactId>quarkus-resteasy-jaxb</artifactId>
-</dependency>
- 
-
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-resteasy-jaxb</artifactId>
+        </dependency>
 
 
     </dependencies>

@@ -20,13 +20,15 @@ public class MateriaResource {
 
     @GET
     @Path("")
-    public Response obtenerTodas() {
-        List<Materia> materias = materiaService.obtenerTodas();
-        return Response.ok(materias).build();
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Materia> obtenerTodas() {
+        List<Materia> test = this.materiaService.obtenerTodas();
+        return test;
     }
 
     @GET
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_XML)
     public Response obtenerPorId(@PathParam("id") Integer id) {
         return Response.ok(materiaService.obtenerPorId(id)).build();
     }
@@ -57,8 +59,8 @@ public class MateriaResource {
     @PUT
     @Path("/{id}")
     public Response actualizar(@PathParam("id") Integer id, Materia materia) {
-        Materia actualizada = materiaService.actualizar(id, materia);
-        return Response.ok(actualizada).build();
+        this.materiaService.actualizar(id, materia);
+        return Response.status(209).entity(null).build();
     }
 
      @PATCH

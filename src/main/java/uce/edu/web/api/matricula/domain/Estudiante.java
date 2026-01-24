@@ -1,19 +1,26 @@
 package uce.edu.web.api.matricula.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.CascadeType;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+
 @Entity
 @Table(name = "estudiante")
 @SequenceGenerator(name = "estudiante_sec", sequenceName = "cliente_secuencia",allocationSize = 1)
@@ -27,6 +34,9 @@ public class Estudiante extends PanacheEntityBase {
     public LocalDateTime fechaNacimiento;
     public String provincia;
     public String genero;
+
+     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Hijo> hijos;
 
     public Integer getId() {
         return id;
