@@ -32,25 +32,25 @@ public class EstudianteService {
 }
 
     @Transactional
-    public void crear(Estudiante estu){
-        this.estudianteRepository.persist(estu);
+    public void crear(EstudianteRepresentation estu){
+        this.estudianteRepository.persist(this.mapperToEstudiante(estu));
     }
 
    @Transactional
-public void actualizar(Integer id, Estudiante est){
+public void actualizar(Integer id, EstudianteRepresentation estu){
     Estudiante estudiante = this.estudianteRepository.findById(id.longValue());
     if(estudiante != null) {
-        estudiante.apellido=est.apellido;
-        estudiante.nombre=est.nombre;
-        estudiante.fechaNacimiento=est.fechaNacimiento;
+        estudiante.apellido=estu.apellido;
+        estudiante.nombre=estu.nombre;
+        estudiante.fechaNacimiento=estu.fechaNacimiento;
     }
 }
 
     @Transactional
-    public void actualizarParcial(Integer id, Estudiante est){
-        EstudianteRepresentation estu = this.consultarPorId(id);
-        if(est.nombre!=null){
-            estu.nombre=est.nombre;
+    public void actualizarParcial(Integer id, EstudianteRepresentation estu){
+        Estudiante est = estudianteRepository.findById(id.longValue());
+        if(estu.nombre!=null){
+            estu.nombre=estu.nombre;
         }
         if(est.apellido!=null){
             estu.apellido=est.apellido;
@@ -58,7 +58,7 @@ public void actualizar(Integer id, Estudiante est){
         if(est.fechaNacimiento!=null){
             estu.fechaNacimiento=est.fechaNacimiento;
         }
-        //se actualiza automaticamente por dirty checking
+       
        
     }
 
