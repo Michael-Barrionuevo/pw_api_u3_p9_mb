@@ -2,6 +2,9 @@ package uce.edu.web.api.matricula.interfaces;
  
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -38,6 +41,7 @@ public class EstudianteResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public List<EstudianteRepresentation> listarTodos() {
         System.out.println("LISTAR TODOS XXXXX");
 
@@ -53,14 +57,21 @@ public class EstudianteResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public EstudianteRepresentation consultarPorId(@PathParam("id") Integer iden) {
-        return this.construirLinks(this.estudianteService.consultarPorId(iden));
+    @RolesAllowed("admin")
+    //@PermitAll
+    public Response consultarPorId(@PathParam("id") Integer iden) {
+        EstudianteRepresentation er = this.estudianteService.consultarPorId(iden);
+        if (er == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(null).build();
+        }
+        return Response.ok(this.construirLinks(er)).build();
     }
  
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response guardar(EstudianteRepresentation estudianteRepresentation) {
         this.estudianteService.crear(estudianteRepresentation);
         return Response.status(Response.Status.CREATED).entity(estudianteRepresentation).build();
@@ -70,15 +81,18 @@ public class EstudianteResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response actualizar(@PathParam("id") Integer id, EstudianteRepresentation estudianteRepresentation) {
         this.estudianteService.actualizar(id, estudianteRepresentation);
-        return Response.status(209).entity(null).build();
+        return Response.ok().build();
+
     }
  
     @PATCH
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response actualizarParcial(@PathParam("id") Integer id, EstudianteRepresentation estudianteRepresentation) {
         this.estudianteService.actualizarParcial(id, estudianteRepresentation);
         return Response.status(209).entity(estudianteRepresentation).build();
@@ -86,6 +100,7 @@ public class EstudianteResource {
  
     @DELETE
     @Path("/{id}")
+    @RolesAllowed("admin")
     public void borrar(@PathParam("id") Integer id) {
         this.estudianteService.eliminar(id);
     }
@@ -94,6 +109,7 @@ public class EstudianteResource {
     @GET
     @Path("/provincia/genero")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public List<Estudiante> buscarPorProvincia(@QueryParam("provincia") String provincia,
             @QueryParam("genero") String genero) {
         System.out.println("LISTAR TODOS POR PROVINCIA Y GENEROS XXXXX");
@@ -108,6 +124,9 @@ public class EstudianteResource {
     }
 
     private EstudianteRepresentation construirLinks(EstudianteRepresentation er) {
+        if (er == null) {
+            return null;
+        }
         String self = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.id)).build().toString();
 
         String hijos = this.uriInfo.getBaseUriBuilder().path(EstudianteResource.class).path(String.valueOf(er.id)).path("hijos").build().toString();

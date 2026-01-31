@@ -49,17 +49,18 @@ public void actualizar(Integer id, EstudianteRepresentation estu){
     @Transactional
     public void actualizarParcial(Integer id, EstudianteRepresentation estu){
         Estudiante est = estudianteRepository.findById(id.longValue());
-        if(estu.nombre!=null){
-            estu.nombre=estu.nombre;
+        if (est == null) {
+            return;
         }
-        if(est.apellido!=null){
-            estu.apellido=est.apellido;
+        if (estu.nombre != null) {
+            est.nombre = estu.nombre;
         }
-        if(est.fechaNacimiento!=null){
-            estu.fechaNacimiento=est.fechaNacimiento;
+        if (estu.apellido != null) {
+            est.apellido = estu.apellido;
         }
-       
-       
+        if (estu.fechaNacimiento != null) {
+            est.fechaNacimiento = estu.fechaNacimiento;
+        }
     }
 
     @Transactional
@@ -90,16 +91,17 @@ public void actualizar(Integer id, EstudianteRepresentation estu){
 
 
 
-    private Estudiante mapperToEstudiante (EstudianteRepresentation est){
-        Estudiante estR = new Estudiante();
-        estR.id=est.id;
-        estR.nombre=est.nombre;
-        estR.apellido=est.apellido;
-        estR.fechaNacimiento=est.fechaNacimiento;
-        estR.provincia=est.provincia;
-        estR.genero=est.genero;
-        return estR;
-    }
+  private Estudiante mapperToEstudiante (EstudianteRepresentation est){
+    Estudiante estR = new Estudiante();
+    
+    estR.nombre = est.nombre;
+    estR.apellido = est.apellido;
+    estR.fechaNacimiento = est.fechaNacimiento;
+    estR.provincia = est.provincia;
+    estR.genero = est.genero;
+    return estR;
+}
+
 
 
 
