@@ -2,6 +2,7 @@ package uce.edu.web.api.matricula.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -28,9 +29,12 @@ public class Estudiante extends PanacheEntityBase {
 
       @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "estudiante_sec")
+
+    
     public Integer id;
     public String nombre;
     public String apellido;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime fechaNacimiento;
     public String provincia;
     public String genero;
